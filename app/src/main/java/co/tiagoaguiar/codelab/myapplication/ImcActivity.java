@@ -1,8 +1,10 @@
 package co.tiagoaguiar.codelab.myapplication;
 
 import androidx.annotation.StringRes;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -43,7 +45,18 @@ public class ImcActivity extends AppCompatActivity {
 
                 int imcResponseId = imcResponse(result);
 
-                Toast.makeText(ImcActivity.this, imcResponseId, Toast.LENGTH_SHORT).show();
+                AlertDialog dialog = new AlertDialog.Builder(ImcActivity.this)
+                        .setTitle(getString(R.string.imc_response, result))
+                        .setMessage(imcResponseId)
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        })
+                        .create();
+
+                dialog.show();
             }
         });
     }
