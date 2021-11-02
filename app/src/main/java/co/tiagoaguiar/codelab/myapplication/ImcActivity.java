@@ -29,42 +29,39 @@ public class ImcActivity extends AppCompatActivity {
         editWeight = findViewById(R.id.edit_imc_weight);
 
         Button btnSend = findViewById(R.id.btn_imc_send);
-        btnSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(!validate()){
-                    Toast.makeText(ImcActivity.this, "Todos os campos devem ser maiores que 0", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                String sHeight = editHeight.getText().toString();
-                String sWeight = editWeight.getText().toString();
-
-                int height = Integer.parseInt(sHeight);
-                int weight = Integer.parseInt(sWeight);
-
-                double result = calculate(height, weight);
-                Log.d("Teste", "resultado: " + result);
-
-                int imcResponseId = imcResponse(result);
-
-                AlertDialog dialog = new AlertDialog.Builder(ImcActivity.this)
-                        .setTitle(getString(R.string.imc_response, result))
-                        .setMessage(imcResponseId)
-                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                            }
-                        })
-                        .create();
-
-                dialog.show();
-
-                InputMethodManager imn = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imn.hideSoftInputFromWindow(editHeight.getWindowToken(), 0);
-                imn.hideSoftInputFromWindow(editWeight.getWindowToken(), 0);
+        btnSend.setOnClickListener(view -> {
+            if(!validate()){
+                Toast.makeText(ImcActivity.this, "Todos os campos devem ser maiores que 0", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            String sHeight = editHeight.getText().toString();
+            String sWeight = editWeight.getText().toString();
+
+            int height = Integer.parseInt(sHeight);
+            int weight = Integer.parseInt(sWeight);
+
+            double result = calculate(height, weight);
+            Log.d("Teste", "resultado: " + result);
+
+            int imcResponseId = imcResponse(result);
+
+            AlertDialog dialog = new AlertDialog.Builder(ImcActivity.this)
+                    .setTitle(getString(R.string.imc_response, result))
+                    .setMessage(imcResponseId)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    })
+                    .create();
+
+            dialog.show();
+
+            InputMethodManager imn = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imn.hideSoftInputFromWindow(editHeight.getWindowToken(), 0);
+            imn.hideSoftInputFromWindow(editWeight.getWindowToken(), 0);
         });
     }
 
