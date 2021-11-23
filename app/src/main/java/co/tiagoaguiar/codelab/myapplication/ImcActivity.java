@@ -55,6 +55,18 @@ public class ImcActivity extends AppCompatActivity {
 
                         }
                     })
+                    .setNegativeButton(R.string.save, ((dialogInterface, i) -> {
+
+                        new Thread(() -> {
+                            long calcId = SqlHelper.getInstance(ImcActivity.this).addItem("imc", result);
+
+                            runOnUiThread(() -> {
+                                if(calcId > 0 )
+                                    Toast.makeText(ImcActivity.this, R.string.calc_saved, Toast.LENGTH_SHORT).show();
+                            });
+                        }).start();
+
+                    }))
                     .create();
 
             dialog.show();
